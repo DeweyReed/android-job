@@ -180,6 +180,9 @@ public class JobProxy14 implements JobProxy {
         if (!repeating) {
             flags |= PendingIntent.FLAG_ONE_SHOT;
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
         return flags;
     }
 

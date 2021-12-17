@@ -53,7 +53,11 @@ import java.util.concurrent.TimeUnit;
 
     public static void persistBundle(@NonNull Context context, @NonNull JobRequest request) {
         Intent intent = PlatformAlarmServiceExact.createIntent(context, request.getJobId(), request.getTransientExtras());
-        PendingIntent pendingIntent = PendingIntent.getService(context, request.getJobId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
+        PendingIntent pendingIntent = PendingIntent.getService(context, request.getJobId(), intent, flags);
 
         long when = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1000);
 
