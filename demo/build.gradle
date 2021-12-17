@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: '../build-config/gradle-quality.gradle'
+// apply from: '../build-config/gradle-quality.gradle'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -53,4 +53,4 @@ dependencies {
     gcmImplementation "androidx.work:work-runtime:$workVersion"
 }
 
-uploadArchives.enabled false
+// uploadArchives.enabled false

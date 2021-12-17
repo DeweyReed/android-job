@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
-apply from: '../build-config/gradle-quality.gradle'
+apply plugin: 'maven-publish'
+// apply from: '../build-config/gradle-quality.gradle'
 
 archivesBaseName = 'android-job'
 
@@ -74,4 +75,17 @@ android {
     }
 }
 
-apply from: '../build-config/gradle-push.gradle'
+// apply from: '../build-config/gradle-push.gradle'
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'xyz.aprildown'
+                artifactId = 'android-job'
+                version = '1.4.3'
+            }
+        }
+    }
+}
