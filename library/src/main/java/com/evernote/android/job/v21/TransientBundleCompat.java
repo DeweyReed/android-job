@@ -68,7 +68,11 @@ import java.util.concurrent.TimeUnit;
     public static boolean startWithTransientBundle(@NonNull Context context, @NonNull JobRequest request) {
         // transientExtras are not necessary in this case
         Intent intent = PlatformAlarmServiceExact.createIntent(context, request.getJobId(), null);
-        PendingIntent pendingIntent = PendingIntent.getService(context, request.getJobId(), intent, PendingIntent.FLAG_NO_CREATE);
+        int flags = PendingIntent.FLAG_NO_CREATE;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
+        PendingIntent pendingIntent = PendingIntent.getService(context, request.getJobId(), intent, flags);
 
         if (pendingIntent == null) {
             return false;
@@ -91,14 +95,22 @@ import java.util.concurrent.TimeUnit;
 
     public static boolean isScheduled(Context context, int jobId) {
         Intent intent = PlatformAlarmServiceExact.createIntent(context, jobId, null);
-        return PendingIntent.getService(context, jobId, intent, PendingIntent.FLAG_NO_CREATE) != null;
+        int flags = PendingIntent.FLAG_NO_CREATE;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
+        return PendingIntent.getService(context, jobId, intent, flags) != null;
     }
 
     public static void cancel(@NonNull Context context, int jobId, @Nullable PendingIntent pendingIntent) {
         try {
             if (pendingIntent == null) {
                 Intent intent = PlatformAlarmServiceExact.createIntent(context, jobId, null);
-                pendingIntent = PendingIntent.getService(context, jobId, intent, PendingIntent.FLAG_NO_CREATE);
+                int flags = PendingIntent.FLAG_NO_CREATE;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    flags |= PendingIntent.FLAG_IMMUTABLE;
+                }
+                pendingIntent = PendingIntent.getService(context, jobId, intent, flags);
 
                 if (pendingIntent == null) {
                     return;
