@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.3'
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
+        // classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
     }
 }
 
@@ -30,32 +30,32 @@ ext {
     playServicesVersion = '17.0.0'
     workVersion = '2.7.0'
     stethoVersion = '1.5.0'
-    junitVersion = '4.13.2'
-    assertjVersion = '3.6.2'
-    mockitoVersion = '3.12.4'
-    robolectricVersion = '4.7.3'
+    // junitVersion = '4.13.2'
+    // assertjVersion = '3.6.2'
+    // mockitoVersion = '3.12.4'
+    // robolectricVersion = '4.7.3'
 }
 
-allprojects {
-  configurations.all {
-    resolutionStrategy.eachDependency { details ->
-      if (details.requested.group == 'androidx.arch.core'
-          && details.requested.name.contains('core-common')) {
-        details.useVersion '2.0.1'
-      }
-      if (details.requested.group == 'androidx.collection'
-          && details.requested.name.contains('collection')) {
-        details.useVersion '1.0.0'
-      }
-      if (details.requested.group == 'androidx.lifecycle'
-          && details.requested.name.contains('lifecycle-runtime')) {
-        details.useVersion '2.0.0'
-      }
-    }
-  }
-}
+// allprojects {
+//   configurations.all {
+//     resolutionStrategy.eachDependency { details ->
+//       if (details.requested.group == 'androidx.arch.core'
+//           && details.requested.name.contains('core-common')) {
+//         details.useVersion '2.0.1'
+//       }
+//       if (details.requested.group == 'androidx.collection'
+//           && details.requested.name.contains('collection')) {
+//         details.useVersion '1.0.0'
+//       }
+//       if (details.requested.group == 'androidx.lifecycle'
+//           && details.requested.name.contains('lifecycle-runtime')) {
+//         details.useVersion '2.0.0'
+//       }
+//     }
+//   }
+// }
 
-task updateWrapper(type: Wrapper) {
-    gradleVersion = '7.4.2'
-    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
-}
+// task updateWrapper(type: Wrapper) {
+//     gradleVersion = '7.4.2'
+//     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+// }
