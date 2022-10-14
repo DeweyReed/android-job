@@ -3,7 +3,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 dependencies {
-    compileOnly "com.google.android.gms:play-services-gcm:$playServicesVersion"
     compileOnly "androidx.work:work-runtime:$workVersion"
 
     //noinspection GradleCompatible,GradleDependency

@@ -45,16 +45,6 @@
         </receiver>
 
         <service
-            android:name="com.evernote.android.job.gcm.PlatformGcmService"
-            android:enabled="false"
-            android:exported="true"
-            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
-            <intent-filter>
-                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
-            </intent-filter>
-        </service>
-
-        <service
             android:name="com.evernote.android.job.JobRescheduleService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"/>

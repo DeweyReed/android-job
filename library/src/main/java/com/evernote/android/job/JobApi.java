@@ -25,7 +25,6 @@ import android.content.pm.ResolveInfo;
 import android.os.Build;
 import androidx.annotation.NonNull;
 
-import com.evernote.android.job.gcm.JobProxyGcm;
 import com.evernote.android.job.v14.JobProxy14;
 import com.evernote.android.job.v14.PlatformAlarmReceiver;
 import com.evernote.android.job.v14.PlatformAlarmService;
@@ -36,7 +35,6 @@ import com.evernote.android.job.v21.PlatformJobService;
 import com.evernote.android.job.v24.JobProxy24;
 import com.evernote.android.job.v26.JobProxy26;
 import com.evernote.android.job.work.JobProxyWorkManager;
-import com.google.android.gms.gcm.GcmNetworkManager;
 
 import java.util.List;
 
@@ -71,11 +69,7 @@ public enum JobApi {
     /**
      * Uses the {@link AlarmManager} for scheduling jobs.
      */
-    V_14(false, true, true),
-    /**
-     * Uses the {@link GcmNetworkManager} for scheduling jobs.
-     */
-    GCM(true, false, true);
+    V_14(false, true, true);
 
     private static final String JOB_SCHEDULER_PERMISSION = "android.permission.BIND_JOB_SERVICE";
 
@@ -120,13 +114,6 @@ public enum JobApi {
                 return JobConfig.isForceAllowApi14()
                         || (isServiceEnabled(context, PlatformAlarmService.class) && isServiceEnabled(context, PlatformAlarmServiceExact.class)
                         && isBroadcastEnabled(context, PlatformAlarmReceiver.class));
-            case GCM:
-                try {
-                    // see https://github.com/evernote/android-job/issues/487
-                    return GcmAvailableHelper.isGcmApiSupported(context);
-                } catch (Exception e) {
-                    return false;
-                }
             default:
                 throw new IllegalStateException("not implemented");
         }
@@ -147,8 +134,6 @@ public enum JobApi {
                 return new JobProxy19(context);
             case V_14:
                 return new JobProxy14(context);
-            case GCM:
-                return new JobProxyGcm(context);
             default:
                 throw new IllegalStateException("not implemented");
         }
@@ -218,8 +203,6 @@ public enum JobApi {
             return V_24;
         } else if (V_21.isSupported(context) && JobConfig.isApiEnabled(V_21)) {
             return V_21;
-        } else if (GCM.isSupported(context) && JobConfig.isApiEnabled(GCM)) {
-            return GCM;
         } else if (V_19.isSupported(context) && JobConfig.isApiEnabled(V_19)) {
             return V_19;
         } else if (JobConfig.isApiEnabled(V_14)) {

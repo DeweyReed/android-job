@@ -31,7 +31,6 @@ import android.util.SparseArray;
 import com.evernote.android.job.util.JobCat;
 import com.evernote.android.job.util.JobPreconditions;
 import com.evernote.android.job.util.JobUtil;
-import com.google.android.gms.gcm.GcmNetworkManager;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
